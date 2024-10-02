@@ -35,7 +35,7 @@ function renderDamage(character, enemy) {
     character.hp = 0;
     renderHP(character);
     disabledFightButton();
-    alert(`${character.name} програв`);
+    alert(`${character.name} програв бій`);
   } else if (enemy.hp <= 0 && character.hp > enemy.hp) {
     enemy.hp = 0;
     renderHP(enemy);
@@ -47,7 +47,7 @@ function renderDamage(character, enemy) {
     renderHP(character);
     renderHP(enemy);
     disabledFightButton();
-    alert(`Обидва програли програв бій`);
+    alert(`Обидва програли бій`);
   }
   else {
     renderHP(character);
