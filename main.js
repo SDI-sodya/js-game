@@ -3,20 +3,7 @@ function getRandomInt(max) {
 }
 
 function isPokemon(person) {
-  return typeof person !== 'object' || !(person instanceof Pokemon);
-}
-
-function renderHPLife(person) {
-  person.elHP.textContent = `${person.getHP()} / ${person.getMaxHP()}`;
-}
-
-function renderHPBar(person) {
-  person.hpBar.style.width = `${person.getHP()}%`;
-}
-
-function renderHP(person) {
-  renderHPLife(person);
-  renderHPBar(person);
+  return typeof person == 'object' || person instanceof Pokemon;
 }
 
 function init(character, enemy) {
@@ -26,49 +13,39 @@ function init(character, enemy) {
 }
 
 function disabledFightButton() {
-  document.getElementById('btn-random-kick').setAttribute('disabled', '');
-  document.getElementById('btn-static-kick').setAttribute('disabled', '');
+  let arr = document.getElementsByClassName('fight-button');
+  for (i = 0; i < arr.length; i++) {
+    arr[i].disabled = true;
+  }
 }
 
 function renderDamage(character, enemy) {
   if (character.hp <= 0 && character.hp < enemy.hp) {
     character.hp = 0;
-    renderHP(character);
+    character.renderHP();
     disabledFightButton();
     alert(`${character.name} програв бій`);
   } else if (enemy.hp <= 0 && character.hp > enemy.hp) {
     enemy.hp = 0;
-    renderHP(enemy);
+    enemy.renderHP();
     disabledFightButton();
     alert(`${enemy.name} програв бій`);
   } else if (character.hp <= 0 && enemy.hp <= 0) {
     character.hp = 0;
     enemy.hp = 0;
-    renderHP(character);
-    renderHP(enemy);
+    character.renderHP();
+    enemy.renderHP();
     disabledFightButton();
     alert(`Обидва програли бій`);
   }
   else {
-    renderHP(character);
-    renderHP(enemy);
+    character.renderHP();
+    enemy.renderHP();
   }
 }
 
-function attackRandom(character, enemy) {
-  if (isPokemon(character) || isPokemon(enemy))
-    throw new TypeError("One of them isn't a pockemon");
-  character.hp -= getRandomInt(20);
-  enemy.hp -= getRandomInt(20);
-  renderDamage(character, enemy)
-}
-
-function attackStatic(character, enemy) {
-  if (isPokemon(character) || isPokemon(enemy))
-    throw new TypeError("It's not a pockemon");
-  character.hp -= 10;
-  enemy.hp -= 10;
-  renderDamage(character, enemy)
+function pokemonAttack(character, enemy, damage) {
+  return character.attack(enemy, damage);
 }
 
 class Pokemon {
@@ -91,6 +68,24 @@ class Pokemon {
 
   getHP() {
     return this.hp;
+  }
+
+  attack(enemy, damage = 0) {
+    if (!isPokemon(enemy))
+      throw new TypeError("It's not a pockemon");
+    if(damage === 0) {
+      this.hp -= getRandomInt(20);
+      enemy.hp -= getRandomInt(20);
+    } else {
+      this.hp -= damage;
+      enemy.hp -= damage;
+    }
+    renderDamage(this, enemy);
+  }
+
+  renderHP() {
+    this.elHP.textContent = `${this.getHP()} / ${this.getMaxHP()}`;
+    this.hpBar.style.width = `${this.getHP()}%`;
   }
 }
 
