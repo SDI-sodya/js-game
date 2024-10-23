@@ -1,50 +1,55 @@
+// Підключення логів з logs.js
+import { renderLog, logBattle } from "./logs.js";
+
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
 function isPokemon(person) {
-  return typeof person == 'object' || person instanceof Pokemon;
+  return typeof person === 'object' || person instanceof Pokemon;
 }
 
 function init(character, enemy) {
   console.log('Ready, Steady, GO!');
-  renderHP(character);
-  renderHP(enemy);
+  character.renderHP();
+  enemy.renderHP();
 }
 
 function disabledFightButton() {
-  let arr = document.getElementsByClassName('fight-button');
-  for (i = 0; i < arr.length; i++) {
-    arr[i].disabled = true;
-  }
+  const buttons = document.getElementsByClassName('fight-button');
+  Array.from(buttons).forEach(button => button.disabled = true);
 }
 
 function renderDamage(character, enemy) {
-  if (character.hp <= 0 && character.hp < enemy.hp) {
+  const { hp: characterHP, name: characterName } = character;
+  const { hp: enemyHP, name: enemyName } = enemy;
+
+  if (characterHP <= 0 && characterHP < enemyHP) {
     character.hp = 0;
     character.renderHP();
     disabledFightButton();
-    alert(`${character.name} програв бій`);
-  } else if (enemy.hp <= 0 && character.hp > enemy.hp) {
+    logBattle(`${characterName} програв бій`);
+  } else if (enemyHP <= 0 && characterHP > enemyHP) {
     enemy.hp = 0;
     enemy.renderHP();
     disabledFightButton();
-    alert(`${enemy.name} програв бій`);
-  } else if (character.hp <= 0 && enemy.hp <= 0) {
+    logBattle(`${enemyName} програв бій`);
+  } else if (characterHP <= 0 && enemyHP <= 0) {
     character.hp = 0;
     enemy.hp = 0;
     character.renderHP();
     enemy.renderHP();
     disabledFightButton();
-    alert(`Обидва програли бій`);
-  }
-  else {
+    logBattle(`Обидва програли бій`);
+  } else {
     character.renderHP();
     enemy.renderHP();
+    
+    renderLog(character, enemy);
   }
 }
 
-function pokemonAttack(character, enemy, damage) {
+function pokemonAttack(character, enemy, damage = 0) {
   return character.attack(enemy, damage);
 }
 
@@ -71,9 +76,8 @@ class Pokemon {
   }
 
   attack(enemy, damage = 0) {
-    if (!isPokemon(enemy))
-      throw new TypeError("It's not a pockemon");
-    if(damage === 0) {
+    if (!isPokemon(enemy)) throw new TypeError("It's not a Pokémon");
+    if (damage === 0) {
       this.hp -= getRandomInt(20);
       enemy.hp -= getRandomInt(20);
     } else {
@@ -85,11 +89,21 @@ class Pokemon {
 
   renderHP() {
     this.elHP.textContent = `${this.getHP()} / ${this.getMaxHP()}`;
-    this.hpBar.style.width = `${this.getHP()}%`;
+    this.hpBar.style.width = `${(this.getHP() / this.getMaxHP()) * 100}%`;
   }
 }
 
-let pokemonCharacter = new Pokemon('Pukachu', 100, 'electro', 'health-character', 'progressbar-character');
+let pokemonCharacter = new Pokemon('Pikachu', 100, 'electro', 'health-character', 'progressbar-character');
 let pokemonEnemy = new Pokemon('Charmander', 100, 'flame', 'health-enemy', 'progressbar-enemy');
 
 init(pokemonCharacter, pokemonEnemy);
+
+
+document.querySelector('.fight-button:nth-child(1)').addEventListener('click', () => {
+  pokemonAttack(pokemonCharacter, pokemonEnemy);
+});
+document.querySelector('.fight-button:nth-child(2)').addEventListener('click', () => {
+  pokemonAttack(pokemonCharacter, pokemonEnemy, 10);
+});
+
+export { getRandomInt };

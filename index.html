@@ -9,62 +9,62 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="body">
-    <header>
-        <img class="logo"
-             title="Reset Game"
-             src="./assets/Pokemon_logo.png"
-             alt="Pokemon">
-    </header>
-    <div class="playground">
-        <div class="pokemon character">
-            <span class="lvl">Lv. 1</span>
+    <div class="body">
+        <header>
+            <img class="logo"
+                title="Reset Game"
+                src="./assets/Pokemon_logo.png"
+                alt="Pokemon">
+        </header>
+        <div class="playground">
+            <div class="pokemon character">
+                <span class="lvl">Lv. 1</span>
 
-            <img src="./assets/188987.png" class="sprite">
+                <img src="./assets/188987.png" class="sprite">
 
-            <div class="details">
-                <h2 class="name" id="name-character">
-                    Pikachu
-                </h2>
-                <div class="hp">
-                    <div class="bar">
-                        <div class="health" id="progressbar-character" style="width: 100%;"></div>
+                <div class="details">
+                    <h2 class="name" id="name-character">
+                        Pikachu
+                    </h2>
+                    <div class="hp">
+                        <div class="bar">
+                            <div class="health" id="progressbar-character" style="width: 100%;"></div>
+                        </div>
+                        <span class="text" id="health-character">100 / 100</span>
                     </div>
-                    <span class="text" id="health-character">100 / 100</span>
                 </div>
             </div>
-        </div>
 
-        <div class="control">
-            <button class="button fight-button" id="" onclick="pokemonAttack(pokemonCharacter, pokemonEnemy)">
-                Thunder Jolt
-            </button>
-            <button class="button fight-button" id="" onclick="pokemonAttack(pokemonCharacter, pokemonEnemy, 10)">
-                Fireball
-            </button>
-        </div>
+            <div class="control">
+                <button class="button fight-button" id="staticdamage">
+                    Thunder Jolt
+                </button>
+                <button class="button fight-button" id="">
+                    Fireball
+                </button>
+            </div>
 
-        <div class="pokemon enemy">
-            <span class="lvl">Lv. 1</span>
+            <div class="pokemon enemy">
+                <span class="lvl">Lv. 1</span>
 
-            <img src="./assets/188990.png" class="sprite">
+                <img src="./assets/188990.png" class="sprite">
 
-            <div class="details">
-                <h2 class="name" id="name-enemy">
-                    Charmander
-                </h2>
-                <div class="hp">
-                    <div class="bar">
-                        <div class="health" id="progressbar-enemy" style="width: 100%;"></div>
+                <div class="details">
+                    <h2 class="name" id="name-enemy">
+                        Charmander
+                    </h2>
+                    <div class="hp">
+                        <div class="bar">
+                            <div class="health" id="progressbar-enemy" style="width: 100%;"></div>
+                        </div>
+                        <span class="text" id="health-enemy">100 / 100</span>
                     </div>
-                    <span class="text" id="health-enemy">100 / 100</span>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="catch_screen"></div>
-
-<script src="main.js"></script>
+    <div class="catch_screen"></div>
+    <div id="logs"></div>
+    <script src="main.js" type="module"></script>
 </body>
 </html>

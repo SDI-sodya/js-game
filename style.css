@@ -473,3 +473,18 @@ h1 {
 .action label {
     padding: 6px 0;
 }
+
+#logs {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: .9em;
+}
+
+#logs * {
+    margin: 0 0 5px;
+}
+
+#logs *:nth-child(1) {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+}
