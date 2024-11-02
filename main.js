@@ -60,7 +60,7 @@ const createButtonClickCounter = (maxClicks, numAtackButt) => {
   let clickCount = 0;
 
   return () => {
-    if (clickCount < maxClicks) {
+    if (clickCount < maxClicks - 1) {
       clickCount++;
       console.log(`Button clicked ${clickCount} times. Remaining: ${maxClicks - clickCount}`);
     } else {
@@ -69,7 +69,6 @@ const createButtonClickCounter = (maxClicks, numAtackButt) => {
     }
   };
 }
-
 class Pokemon {
   constructor(name, max_hp, power, idHP, idBar) {
     this.name = name;
@@ -116,11 +115,11 @@ let pokemonEnemy = new Pokemon('Charmander', 100, 'flame', 'health-enemy', 'prog
 init(pokemonCharacter, pokemonEnemy);
 
 
-const thunderJoltCounter = createButtonClickCounter(6, 0); // Лічильник для кнопки Thunder Jolt
-const fireballCounter = createButtonClickCounter(8, 1); // Лічильник для кнопки Fireball
+const thunderJoltCounter = createButtonClickCounter(7, 0); // Лічильник для кнопки Thunder Jolt
+const fireballCounter = createButtonClickCounter(9, 1); // Лічильник для кнопки Fireball
 
 // Встановлюємо обробники подій
-document.getElementById('.fight-button:nth-child(1)').addEventListener('click', () => {
+document.getElementById('staticdamage').addEventListener('click', () => {
     thunderJoltCounter();
     pokemonAttack(pokemonCharacter, pokemonEnemy);
 });
