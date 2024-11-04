@@ -32,8 +32,8 @@ export function randomEnemyAttack(enemy) {
   return getRandomInt(attack.minDamage, attack.maxDamage);
 }
 
-function renderHP(pokemon, damage, hpBar) {
+function renderHP(pokemon, damage) {
   pokemon.hp -= damage;
-  const characterHealth = document.getElementsByClassName('text')[hpBar];
+  const characterHealth = document.getElementsByClassName('text')[pokemon.id];
   characterHealth.innerText = `${pokemon.hp} / 100`;
 }

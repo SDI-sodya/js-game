@@ -6,10 +6,12 @@ import { renderDamage } from "./assets/js/attack.js"
 
 function createGame() {
   const pokemonCharacter = pokemons[1];
+  pokemonCharacter.id = 0;
   let pokemonEnemy = pokemons[getRandomInt(1, pokemons.length - 1)];
-  renderAttackBtn(pokemonCharacter);
+  pokemonEnemy.id = 1;
+  renderAttackBtn(pokemonCharacter, pokemonEnemy);
   renderPokemon(pokemonCharacter);
-  // renderPokemon(pokemonEnemy);
+  renderPokemon(pokemonEnemy);
 }
 
 
@@ -48,8 +50,10 @@ function renderAttackBtn(character, enemy) {
 
 
 
-function renderPokemon(pokemon) {
-  
+function renderPokemon(pokemon, ) {
+  // Name, Images
+  const namesArr = document.getElementsByClassName('name');
+
 }
 
 
