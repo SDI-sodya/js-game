@@ -1,4 +1,4 @@
-import { getRandomInt } from "./functional.js"
+import { getRandomInt, disabledFightButton } from "./functional.js"
 
 const logs = [
   '[ПЕРСОНАЖ №1] вспомнил что-то важное, но неожиданно [ПЕРСОНАЖ №2], не помня себя от испуга, ударил в предплечье врага.',
@@ -26,8 +26,7 @@ function renderLog(character, enemy) {
 }
 
 function logDefeat(name = '') {
-  disabledFightButton(0);
-  disabledFightButton(1);
+  disabledFightButton();
   logBattle(name ? `${name} програв бій` : 'Обидва програли бій');
 }
 
