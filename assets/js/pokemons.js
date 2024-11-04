@@ -3,7 +3,7 @@ export const pokemons = [
         name: 'Pikachu',
         type: 'electric',
         hp: 274,
-        img: '../images/pikachu.png',
+        img: 'assets/images/pikachu.png',
         attacks: [
             {
                 name: "thunder jolt",
@@ -35,7 +35,7 @@ export const pokemons = [
         name: 'Charmander',
         type: 'fire',
         hp: 282,
-        img: '../images/charmander.png',
+        img: 'assets/images/charmander.png',
         attacks: [
             {
                 name: "ember",
@@ -67,7 +67,7 @@ export const pokemons = [
         name: 'Bulbasaur',
         type: 'fire',
         hp: 294,
-        img: '../images/bulbasaur.png',
+        img: 'assets/images/bulbasaur.png',
         attacks: [
             {
                 name: "tackle",
@@ -99,7 +99,7 @@ export const pokemons = [
         name: 'Squirtle',
         type: 'water',
         hp: 292,
-        img: '../images/squirtle.png',
+        img: 'assets/images/squirtle.png',
         attacks: [
             {
                 name: "bubble",
@@ -131,7 +131,7 @@ export const pokemons = [
         name: 'Pidgey',
         type: 'air',
         hp: 284,
-        img: '../images/pidgey.webp',
+        img: 'assets/images/pidgey.webp',
         attacks: [
             {
                 name: "Air Slash",
@@ -163,7 +163,7 @@ export const pokemons = [
         name: 'Mew',
         type: 'air',
         hp: 404,
-        img: '../images/mew.webp',
+        img: 'assets/images/mew.webp',
         attacks: [
             {
                 name: "Pound",
