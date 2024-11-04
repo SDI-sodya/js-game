@@ -1,13 +1,9 @@
 import { renderDamage } from "./attack.js";
+import { getRandomInt } from "./functional.js";
 
 function isPokemon(person) {
   return typeof person === 'object' || person instanceof Pokemon;
 }
-
-export function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
-
 export class Pokemon {
   constructor(name, max_hp, power, idHP, idBar) {
     this.name = name;

@@ -8,3 +8,7 @@ export function disabledFightButton(numButt) {
   const buttons = document.getElementsByClassName('fight-button');
   buttons[numButt].disabled = true;
 }
+
+export function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}

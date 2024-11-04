@@ -1,4 +1,4 @@
-import { getRandomInt } from "../../main.js"
+import { getRandomInt } from "./functional.js"
 
 const logs = [
     '[ПЕРСОНАЖ №1] вспомнил что-то важное, но неожиданно [ПЕРСОНАЖ №2], не помня себя от испуга, ударил в предплечье врага.',
