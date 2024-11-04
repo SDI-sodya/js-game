@@ -40,6 +40,3 @@ document.querySelector('.fight-button:nth-child(2)').addEventListener('click', (
     fireballCounter();
     pokemonAttack(pokemonCharacter, pokemonEnemy, 10);
 });
-
-
-export { getRandomInt };
