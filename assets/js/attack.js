@@ -1,4 +1,4 @@
-import { renderLog, logBattle } from "../../logs.js";
+import { renderLog, logBattle } from "./logs.js";
 import { disabledFightButton } from "./functional.js";
 
 function logDefeat(name = '') {

@@ -1,10 +1,7 @@
 // Підключення логів з logs.js
-import { Pokemon, getRandomInt } from "./assets/js/Pokemon.js";
+import { Pokemon } from "./assets/js/Pokemon.js";
 import { pokemonAttack } from "./assets/js/attack.js";
 import { init, disabledFightButton } from "./assets/js/functional.js";
-
-
-
 
 // Підразування кліків (із замиканням)
 const createButtonClickCounter = (maxClicks, numAtackButt) => {
