@@ -4,9 +4,14 @@ export function init(character, enemy) {
   enemy.renderHP();
 }
 
-export function disabledFightButton(numButt) {
+export function disabledFightButton(numButt = -1) {
   const buttons = document.getElementsByClassName('fight-button');
-  buttons[numButt].disabled = true;
+  if(numButt === -1) {
+    for(let i = 0; i < buttons.length; i++) 
+      buttons[i].disabled = true;
+  } else {
+    buttons[numButt].disabled = true;
+  }
 }
 
 export function getRandomInt(min, max) {
