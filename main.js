@@ -6,16 +6,11 @@ import { renderDamage, renderHP } from "./assets/js/attack.js"
 
 function createGame() {
   const pokemonCharacter = pokemons[0];
-  pokemonCharacter.id = 0;
-  pokemonCharacter.maxHP = pokemonCharacter.hp;
   let pokemonEnemy = pokemons[getRandomInt(1, pokemons.length - 1)];
-  pokemonEnemy.id = 1;
-  pokemonEnemy.maxHP = pokemonEnemy.hp;
+  renderPokemon(pokemonCharacter, 0);
+  renderPokemon(pokemonEnemy, 1);
+  
   renderAttackBtn(pokemonCharacter, pokemonEnemy);
-  renderPokemon(pokemonCharacter);
-  renderPokemon(pokemonEnemy);
-  renderHP(pokemonCharacter);
-  renderHP(pokemonEnemy);
 }
 
 
@@ -54,15 +49,19 @@ function renderAttackBtn(character, enemy) {
 
 
 
-function renderPokemon(pokemon) {
+export function renderPokemon(pokemon, id = 1) {
+  pokemon.id = id;
+  pokemon.maxHP = pokemon.hp;
+  pokemon.hp = pokemon.maxHP;
+  renderHP(pokemon);
+
   // Name, Images
   const name = document.getElementsByClassName('name')[pokemon.id];
   const img = document.getElementsByClassName('sprite')[pokemon.id];
-  
+
   name.innerText = pokemon.name;
   img.attributes.src.value = pokemon.img;
   // textContent, value, nodeVlue
-  let i = 0;
 }
 
 
@@ -83,12 +82,11 @@ createGame();
 
 /*
   -1. Импортировать массив с покемонами import
-  2. Функция вывода имени покемона. renderName()
+  -2. Функция вывода имени покемона. renderName()
     Долна принимать покемона и выводить его в определённый блок на странице
-  3 ???. Функция вывода типа покемона
-  4. Функция вывода ХП покемона rednerHP()
+  -4. Функция вывода ХП покемона rednerHP()
     Должна принимать покемона и выводить его ХП в определённый блок на странице
-  5. Функция вывода картинки renderImg()
+  -5. Функция вывода картинки renderImg()
     Должна принимать покемона и выводить его картинку в определённый блок на странице
   -6_1. Функция созданяи кнопок с названиями атак createAttackBtn()
   -6_2. Функция вывода массива кнопок renderAttackBtn()
