@@ -34,7 +34,7 @@ body {
     opacity: .4;
 }
 
-.control {
+#control {
     width: 320px;
     height: 260px;
     position: relative;
@@ -277,6 +277,7 @@ body {
     outline: none !important;
     cursor: pointer;
     font-size: 18px;
+    text-transform: capitalize;
 
 }
 .button:after {
