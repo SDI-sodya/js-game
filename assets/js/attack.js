@@ -9,8 +9,8 @@ export function renderDamage(character, enemy, damage) {
     if(characterHP <= 0) character.hp = 0;
     if(enemyHP <= 0) enemy.hp = 0;
 
-    renderHP(character, randomEnemyAttack(enemy), 0);
-    renderHP(enemy, damage, 1);
+    renderHP(character, randomEnemyAttack(enemy));
+    renderHP(enemy, damage);
 
     // if(characterHP <= 0 && enemyHP <= 0) {
     //   logDefeat();
@@ -18,8 +18,8 @@ export function renderDamage(character, enemy, damage) {
     //   logDefeat(characterHP <= 0 ? character.name : enemy.name);
     // }
   } else {
-    renderHP(character, randomEnemyAttack(enemy), 0);
-    renderHP(enemy, damage, 1);
+    renderHP(character, randomEnemyAttack(enemy));
+    renderHP(enemy, damage);
   }
 }
 
@@ -32,8 +32,8 @@ export function randomEnemyAttack(enemy) {
   return getRandomInt(attack.minDamage, attack.maxDamage);
 }
 
-function renderHP(pokemon, damage) {
-  pokemon.hp -= damage;
+export function renderHP(pokemon, damage = 0) {
+  if(damage != 0) pokemon.hp -= damage;
   const characterHealth = document.getElementsByClassName('text')[pokemon.id];
-  characterHealth.innerText = `${pokemon.hp} / 100`;
+  characterHealth.innerText = `${pokemon.hp} / ${pokemon.maxHP}`;
 }

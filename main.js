@@ -1,17 +1,21 @@
 import { pokemons } from "./assets/js/pokemons.js"
 import { getRandomInt } from "./assets/js/functional.js"
-import { renderDamage } from "./assets/js/attack.js"
+import { renderDamage, renderHP } from "./assets/js/attack.js"
 
 
 
 function createGame() {
-  const pokemonCharacter = pokemons[1];
+  const pokemonCharacter = pokemons[0];
   pokemonCharacter.id = 0;
+  pokemonCharacter.maxHP = pokemonCharacter.hp;
   let pokemonEnemy = pokemons[getRandomInt(1, pokemons.length - 1)];
   pokemonEnemy.id = 1;
+  pokemonEnemy.maxHP = pokemonEnemy.hp;
   renderAttackBtn(pokemonCharacter, pokemonEnemy);
   renderPokemon(pokemonCharacter);
   renderPokemon(pokemonEnemy);
+  renderHP(pokemonCharacter);
+  renderHP(pokemonEnemy);
 }
 
 
@@ -50,16 +54,20 @@ function renderAttackBtn(character, enemy) {
 
 
 
-function renderPokemon(pokemon, ) {
+function renderPokemon(pokemon) {
   // Name, Images
-  const namesArr = document.getElementsByClassName('name');
-
+  const name = document.getElementsByClassName('name')[pokemon.id];
+  const img = document.getElementsByClassName('sprite')[pokemon.id];
+  
+  name.innerText = pokemon.name;
+  img.attributes.src.value = pokemon.img;
+  // textContent, value, nodeVlue
+  let i = 0;
 }
 
 
 
-const pokemonCharacter = pokemons[0];
-let pokemonEnemy = pokemons[getRandomInt(1, pokemons.length - 1)];
+createGame();
 
 // Встановлюємо обробники подій
 // document.getElementById('staticdamage').addEventListener('click', () => {
