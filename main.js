@@ -7,13 +7,31 @@ import { renderDamage, renderHP } from "./assets/js/attack.js"
 function createGame() {
   const pokemonCharacter = pokemons[0];
   let pokemonEnemy = pokemonChoose(pokemons, getRandomInt(1, pokemons.length - 1));
+  let characterHearts = 3;
   renderPokemon(pokemonCharacter, 0);
   renderPokemon(pokemonEnemy, 1);
+
+  renderHearts(characterHearts);
   
-  renderAttackBtn(pokemonCharacter, pokemonEnemy);
+  renderAttackBtn(pokemonCharacter, pokemonEnemy, characterHearts);
 }
 
 
+function renderHearts(heartsCount) {
+  createHearts(heartsCount);
+}
+
+
+function createHearts(heartsCount) {
+  const allHearts = document.getElementById('hearts');
+  for(let i = 0; i < heartsCount; i++) {
+    const heart = document.createElement('img');
+    heart.src = "./assets/images/heart.webp";
+    heart.alt = 'Heart of life';
+    heart.className = 'heart';
+    allHearts.appendChild(heart);
+  }
+}
 
 function createAttackBtns(attackBtnsArr) {
   const control = document.getElementById('control');
@@ -32,14 +50,14 @@ function createAttackBtns(attackBtnsArr) {
 
 
 
-function addFuncToBtns(character, enemy) {
+function addFuncToBtns(character, enemy, characterHearts) {
   const attackBtnsArr = document.getElementsByClassName('fight-button');
   const countText = document.getElementsByClassName('click');
   for(let i = 0; i < attackBtnsArr.length; i++) {
     const attack = character.attacks[i];
     let counter;
     attackBtnsArr[i].addEventListener('click', () => {
-      enemy = renderDamage(character, enemy, getRandomInt(attack.minDamage, attack.maxDamage));
+      character, enemy, characterHearts = renderDamage(character, enemy, getRandomInt(attack.minDamage, attack.maxDamage), characterHearts);
       if(counter === undefined)
         counter = createButtonClickCounter(attack.maxCount);
       let clicks = counter();
@@ -54,11 +72,11 @@ function addFuncToBtns(character, enemy) {
 
 
 
-function renderAttackBtn(character, enemy) {
+function renderAttackBtn(character, enemy, characterHearts) {
   const pokemonsAttacks = character.attacks;
 
   createAttackBtns(pokemonsAttacks, character);
-  addFuncToBtns(character, enemy);
+  addFuncToBtns(character, enemy, characterHearts);
 }
 
 
@@ -84,31 +102,18 @@ export function pokemonChoose(pokemonArr, i) {
   return pokemonArr.slice(i, i+1)[0];
 }
 
+/*
+  У персонажда есть 3 жизни которые тратятся, пока он сражается с врагами.
+  После рендера покемонов нужно прописать Пикачу 3 жизни, котоыре будут тратиться в тот момент, когда он будет погибать (когда хп будет равно 0, то будет сниматься одно сердечко и востанавливаться здоровье).
+  После утраты 3-х сердец игра останавливается
 
+
+*/
 
 createGame();
 
 
 /*
-  -1. Импортировать массив с покемонами import
-  -2. Функция вывода имени покемона. renderName()
-    Долна принимать покемона и выводить его в определённый блок на странице
-  -4. Функция вывода ХП покемона rednerHP()
-    Должна принимать покемона и выводить его ХП в определённый блок на странице
-  -5. Функция вывода картинки renderImg()
-    Должна принимать покемона и выводить его картинку в определённый блок на странице
-  -6_1. Функция созданяи кнопок с названиями атак createAttackBtn()
-  -6_2. Функция вывода массива кнопок renderAttackBtn()
-    Должна принимать покемона. Внутри 
-  -7. Функция атаки attack()
-    Должна принимать номер атаки у покемона.
-    При нажатии на кнопку рандомиться кол-во дамага (getRandomInt) и минусуется у противника.
-  -8. Присоединить функцию атаки к кнопке с указанными значениями минимального/максимального дамага
-  9. Присоединить функция счётчика количества ударов к кнопкам с указанными значениями максимального кол-ва кликов
-  10. 
-
-
-
   Доп задания:
   -После того как вы победили врага, отрисуйте нового рандомного врага, чтобы продолжить драться...
   Кол-во уждаров у вас ограничено, как и жизней, так что пользуйтесь ударами с умом...

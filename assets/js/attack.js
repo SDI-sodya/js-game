@@ -3,7 +3,7 @@ import { pokemons } from "./pokemons.js";
 import { getRandomInt } from "./functional.js"
 import { pokemonChoose, renderPokemon } from "../../main.js"
 
-export function renderDamage(character, enemy, damage) {
+export function renderDamage(character, enemy, damage, characterHearts) {
   const enemyDamage = randomEnemyAttack(enemy);
   pokemonAttack(enemy, damage);
   pokemonAttack(character, enemyDamage);
@@ -15,15 +15,20 @@ export function renderDamage(character, enemy, damage) {
     
     if(characterHP <= 0) character.hp = 0;
     if(enemyHP <= 0) enemy.hp = 0;
-    
     renderHP(character);
     renderHP(enemy);
     
-    if(characterHP <= 0) 
+    if(characterHearts <= 0)
       logDefeat(character.name);
-    
+    if(characterHP <= 0) {
+      const hearts = document.getElementById('hearts');
+      const heart = document.getElementsByClassName('heart')[characterHearts - 1];
+      heart.src = './assets/images/broken_heart.png';
+      // hearts.removeChild(heart);
+      characterHearts--;
+      character.hp = character.maxHP;
+    }
   } else {
-    
     renderHP(character);
     renderHP(enemy);
   }
@@ -32,7 +37,7 @@ export function renderDamage(character, enemy, damage) {
     renderPokemon(enemy);
   }
 
-  return enemy;
+  return character, enemy, characterHearts;
 }
 
 export function pokemonAttack(pokemon, damage) {
