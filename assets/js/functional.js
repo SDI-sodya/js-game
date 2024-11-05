@@ -19,16 +19,17 @@ export function getRandomInt(min, max) {
 }
 
 // Підрахування кліків (із замиканням)
-export const createButtonClickCounter = (maxClicks, numAtackButt) => {
+export const createButtonClickCounter = (maxClicks) => {
   let clickCount = 0;
 
   return () => {
     if (clickCount < maxClicks - 1) {
       clickCount++;
       console.log(`Button clicked ${clickCount} times. Remaining: ${maxClicks - clickCount}`);
+      return clickCount;
     } else {
       console.log('Button has reached the maximum number of clicks.');
-      disabledFightButton(numAtackButt);
+      return clickCount = 0;
     }
   };
 }

@@ -1,5 +1,7 @@
 import { renderLog, logBattle, logDefeat  } from "./logs.js";
+import { pokemons } from "./pokemons.js";
 import { getRandomInt } from "./functional.js"
+import { pokemonChoose, renderPokemon } from "../../main.js"
 
 export function renderDamage(character, enemy, damage) {
   const enemyDamage = randomEnemyAttack(enemy);
@@ -17,20 +19,24 @@ export function renderDamage(character, enemy, damage) {
     renderHP(character);
     renderHP(enemy);
     
-    if(characterHP <= 0 && enemyHP <= 0) {
-      logDefeat();
-    } else {
-      logDefeat(characterHP <= 0 ? character.name : enemy.name);
-    }
+    if(characterHP <= 0) 
+      logDefeat(character.name);
+    
   } else {
     
     renderHP(character);
     renderHP(enemy);
   }
+  if(enemyHP <= 0) {
+    enemy = pokemonChoose(pokemons, getRandomInt(1, pokemons.length - 1));
+    renderPokemon(enemy);
+  }
+
+  return enemy;
 }
 
 export function pokemonAttack(pokemon, damage) {
-  return pokemon.hp -= damage;
+  return pokemon.hp = pokemon.hp - damage;
 }
 
 export function randomEnemyAttack(enemy) {

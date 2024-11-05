@@ -1,12 +1,12 @@
 import { pokemons } from "./assets/js/pokemons.js"
-import { getRandomInt } from "./assets/js/functional.js"
+import { getRandomInt, createButtonClickCounter, disabledFightButton } from "./assets/js/functional.js"
 import { renderDamage, renderHP } from "./assets/js/attack.js"
 
 
 
 function createGame() {
   const pokemonCharacter = pokemons[0];
-  let pokemonEnemy = pokemons[getRandomInt(1, pokemons.length - 1)];
+  let pokemonEnemy = pokemonChoose(pokemons, getRandomInt(1, pokemons.length - 1));
   renderPokemon(pokemonCharacter, 0);
   renderPokemon(pokemonEnemy, 1);
   
@@ -17,12 +17,16 @@ function createGame() {
 
 function createAttackBtns(attackBtnsArr) {
   const control = document.getElementById('control');
-
   for(let i = 0; i < attackBtnsArr.length; i++) {
     const newBtn = document.createElement('button');
     newBtn.classList.add('button', 'fight-button');
     newBtn.textContent = attackBtnsArr[i].name;
     control.appendChild(newBtn);
+
+    const newCounter = document.createElement('span');
+    newCounter.className = 'click';
+    newCounter.textContent = attackBtnsArr[i].maxCount;
+    newBtn.appendChild(newCounter);
   }
 }
 
@@ -30,10 +34,20 @@ function createAttackBtns(attackBtnsArr) {
 
 function addFuncToBtns(character, enemy) {
   const attackBtnsArr = document.getElementsByClassName('fight-button');
+  const countText = document.getElementsByClassName('click');
   for(let i = 0; i < attackBtnsArr.length; i++) {
     const attack = character.attacks[i];
+    let counter;
     attackBtnsArr[i].addEventListener('click', () => {
-      renderDamage(character, enemy, getRandomInt(attack.minDamage, attack.maxDamage));
+      enemy = renderDamage(character, enemy, getRandomInt(attack.minDamage, attack.maxDamage));
+      if(counter === undefined)
+        counter = createButtonClickCounter(attack.maxCount);
+      let clicks = counter();
+      countText[i].innerText = `${attack.maxCount - clicks}`;
+      if (clicks === 0)
+        disabledFightButton(i);
+      renderHP(character);
+      renderHP(enemy);
     });
   }
 }
@@ -43,15 +57,15 @@ function addFuncToBtns(character, enemy) {
 function renderAttackBtn(character, enemy) {
   const pokemonsAttacks = character.attacks;
 
-  createAttackBtns(pokemonsAttacks);
+  createAttackBtns(pokemonsAttacks, character);
   addFuncToBtns(character, enemy);
 }
 
 
 
 export function renderPokemon(pokemon, id = 1) {
+  if(pokemon.maxHP === undefined) pokemon.maxHP = pokemon.hp;
   pokemon.id = id;
-  pokemon.maxHP = pokemon.hp;
   pokemon.hp = pokemon.maxHP;
   renderHP(pokemon);
 
@@ -66,18 +80,13 @@ export function renderPokemon(pokemon, id = 1) {
 
 
 
+export function pokemonChoose(pokemonArr, i) {
+  return pokemonArr.slice(i, i+1)[0];
+}
+
+
+
 createGame();
-
-// Встановлюємо обробники подій
-// document.getElementById('staticdamage').addEventListener('click', () => {
-//     thunderJoltCounter();
-//     pokemonAttack(pokemonCharacter, pokemonEnemy);
-// });
-
-// document.querySelector('.fight-button:nth-child(2)').addEventListener('click', () => {
-//     fireballCounter();
-//     pokemonAttack(pokemonCharacter, pokemonEnemy, 10);
-// });
 
 
 /*
@@ -101,7 +110,7 @@ createGame();
 
 
   Доп задания:
-  После того как вы победили врага, отрисуйте нового рандомного врага, чтобы продолжить драться...
+  -После того как вы победили врага, отрисуйте нового рандомного врага, чтобы продолжить драться...
   Кол-во уждаров у вас ограничено, как и жизней, так что пользуйтесь ударами с умом...
   Не все сильные удары самые эффективные...
 
