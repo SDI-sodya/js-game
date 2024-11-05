@@ -56,8 +56,11 @@ function addFuncToBtns(character, enemy, characterHearts) {
   for(let i = 0; i < attackBtnsArr.length; i++) {
     const attack = character.attacks[i];
     let counter;
+
     attackBtnsArr[i].addEventListener('click', () => {
-      character, enemy, characterHearts = renderDamage(character, enemy, getRandomInt(attack.minDamage, attack.maxDamage), characterHearts);
+      const result = renderDamage(character, enemy, getRandomInt(attack.minDamage, attack.maxDamage), characterHearts);
+      enemy = result.enemy;
+      characterHearts = result.characterHearts;
       if(counter === undefined)
         counter = createButtonClickCounter(attack.maxCount);
       let clicks = counter();

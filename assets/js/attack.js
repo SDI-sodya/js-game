@@ -18,13 +18,13 @@ export function renderDamage(character, enemy, damage, characterHearts) {
     renderHP(character);
     renderHP(enemy);
     
-    if(characterHearts <= 0)
+    if(characterHearts <= 0) {
       logDefeat(character.name);
+      return { enemy, characterHearts };
+    }
     if(characterHP <= 0) {
-      const hearts = document.getElementById('hearts');
       const heart = document.getElementsByClassName('heart')[characterHearts - 1];
       heart.src = './assets/images/broken_heart.png';
-      // hearts.removeChild(heart);
       characterHearts--;
       character.hp = character.maxHP;
     }
@@ -37,7 +37,7 @@ export function renderDamage(character, enemy, damage, characterHearts) {
     renderPokemon(enemy);
   }
 
-  return character, enemy, characterHearts;
+  return { enemy, characterHearts };
 }
 
 export function pokemonAttack(pokemon, damage) {
