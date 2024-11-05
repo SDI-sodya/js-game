@@ -346,9 +346,7 @@ body {
   width: 18px;
   height: 18px;
   display: block;
-  position: absolute;
-  top: 54%;
-  left: 39%;
+  position: relative;
   -webkit-animation: float 1s ease infinite;
   animation: float 1s ease infinite;
 }
@@ -499,4 +497,14 @@ h1 {
   border: 2px solid #ffc55b;
   border-radius: 50px;
   padding: 5px 5px 2px;
+}
+
+#hearts {
+  position: absolute;
+  width: 180px;
+  top: 20%;
+  left: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
