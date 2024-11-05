@@ -51,5 +51,18 @@ export function randomEnemyAttack(enemy) {
 
 export function renderHP(pokemon) {
   const characterHealth = document.getElementsByClassName('text')[pokemon.id];
+  const healthBar = document.getElementById(`progressbar-${pokemon.id === 0 ? 'character' : 'enemy'}`);
+
   characterHealth.innerText = `${pokemon.hp} / ${pokemon.maxHP}`;
+
+  const hpPercentage = (pokemon.hp / pokemon.maxHP) * 100;
+  healthBar.style.width = `${hpPercentage}%`;
+
+  healthBar.classList.remove('low', 'critical');
+
+  if (hpPercentage < 20) {
+    healthBar.classList.add('critical');
+  } else if (hpPercentage < 60) {
+    healthBar.classList.add('low');
+  }
 }

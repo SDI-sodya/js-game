@@ -508,3 +508,10 @@ h1 {
   flex-direction: column;
   align-items: stretch;
 }
+
+.pokemon .details .hp .bar .health.low {
+  background: linear-gradient(to right, #ffcc00, #f1f500);
+}
+.pokemon .details .hp .bar .health.critical {
+  background: linear-gradient(to right, #d20000, #f51700);
+}
